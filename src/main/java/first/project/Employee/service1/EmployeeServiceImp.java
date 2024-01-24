@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import first.project.Employee.repository.EmployeeRepository;
 import first.project.Employee.service.EmployeeService;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -34,6 +35,16 @@ public class EmployeeServiceImp implements EmployeeService {
 
             employeeRepository.save(existingEmployee);
         }
+    }
+
+    @Override
+    public List<EmployeeEntity> getAllEmployees(){
+        return employeeRepository.findAll();
+    }
+
+    @Override
+    public EmployeeEntity getEmployeeById(Integer employeeId) {
+        return employeeRepository.findById(employeeId).orElse(null);
     }
 }
 

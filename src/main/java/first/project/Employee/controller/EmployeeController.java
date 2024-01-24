@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import first.project.Employee.service.EmployeeService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/employees/")
 public class EmployeeController {
@@ -38,4 +40,22 @@ public class EmployeeController {
                     .body("Failed to update employee");
         }
     }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<EmployeeEntity>> getAllEmployees(){
+        List<EmployeeEntity> employee = employeeService.getAllEmployees();
+
+        return ResponseEntity.ok(employee);
+    }
+    @GetMapping("/{employeeId}")
+    public ResponseEntity<?> getEmployeeById(@PathVariable Integer employeeId) {
+        EmployeeEntity employee = employeeService.getEmployeeById(employeeId);
+        if (employee != null) {
+            return ResponseEntity.ok(employee);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Employee not found");
+        }
+    }
+
 }

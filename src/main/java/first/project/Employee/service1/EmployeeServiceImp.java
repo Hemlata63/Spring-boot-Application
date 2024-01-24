@@ -26,6 +26,12 @@ public class EmployeeServiceImp implements EmployeeService {
     }
 
     @Override
+    public void deleteEmployee(Integer employeeId) {
+        List<EmployeeEntity> employeeToDelete = employeeRepository.findAllByEmployeeId(employeeId);
+        employeeRepository.deleteAll(employeeToDelete);
+    }
+
+    @Override
     public void updateEmployee(Integer employeeId, EmployeeEntity updatedEmployee) {
         Optional<EmployeeEntity> optionalExistingEmployee = employeeRepository.findById(employeeId);
 

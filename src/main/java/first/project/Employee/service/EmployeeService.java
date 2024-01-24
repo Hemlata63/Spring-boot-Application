@@ -12,5 +12,7 @@ public interface EmployeeService {
     List<EmployeeEntity> getAllEmployees();
 
     EmployeeEntity getEmployeeById(Integer employeeId);
+
+    void deleteEmployee(Integer employeeId);
 }
 

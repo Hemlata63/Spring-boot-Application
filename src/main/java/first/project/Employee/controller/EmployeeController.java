@@ -28,6 +28,18 @@ public class EmployeeController {
         }
     }
 
+    @DeleteMapping("/{employeeId}")
+    public ResponseEntity<String> deleteEmployee(@PathVariable Integer employeeId) {
+        try{
+            employeeService.deleteEmployee(employeeId);
+            return ResponseEntity.ok("Employee deleted successfully");
+        } catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to delete");
+        }
+    }
+
     @PutMapping("/{employeeId}")
     public ResponseEntity<String> updateEmployee(@PathVariable Integer employeeId, @RequestBody EmployeeEntity updatedEmployee) {
         try {

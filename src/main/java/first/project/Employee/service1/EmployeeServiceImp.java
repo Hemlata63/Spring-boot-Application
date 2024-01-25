@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import first.project.Employee.repository.EmployeeRepository;
 import first.project.Employee.service.EmployeeService;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,8 +28,13 @@ public class EmployeeServiceImp implements EmployeeService {
 
     @Override
     public void deleteEmployee(Integer employeeId) {
-        List<EmployeeEntity> employeeToDelete = employeeRepository.findAllByEmployeeId(employeeId);
-        employeeRepository.deleteAll(employeeToDelete);
+        Optional<EmployeeEntity> optionalExistingEmployee = employeeRepository.findById(employeeId);
+
+        if (optionalExistingEmployee.isPresent()) {
+            employeeRepository.deleteById(employeeId);
+        } else {
+            throw new EntityNotFoundException("Employee with ID " + employeeId + " not found");
+        }
     }
 
     @Override
